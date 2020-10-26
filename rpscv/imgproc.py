@@ -66,7 +66,7 @@ def generateGrayFeatures(imshape=(200,300, 3), nbImg=0, verbose=False, rs=42):
         files.append(glob(path))
         files[i].sort(key=str.lower)
 
-    nbImages = sum([len(i) for i in files])
+    nbImages = sum(len(i) for i in files)
 
     # Create empty numpy arays for features and labels
     features = np.empty((nbImages, imsize), dtype=np.float32)
@@ -131,11 +131,7 @@ def hueDistance(img, hueValue):
 
     # Calculate hue distance
     dist = np.abs(hsv[:,:,0] - hueValue)
-    if hueValue < 90:
-        hueOffset = 180
-    else:
-        hueOffset = -180
-
+    hueOffset = 180 if hueValue < 90 else -180
     dist = np.minimum(np.abs(hChannel - hueValue),
                       np.abs(hChannel - (hueValue + hueOffset)))
 

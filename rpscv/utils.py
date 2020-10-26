@@ -158,10 +158,7 @@ class Timer:
         """Returns True if elapsed time is within (less than) delay argument.
         This method is useful to control execution of while loops for a fixed
         time duration."""
-        if self.getElapsed() < delay:
-            return True
-        else:
-            return False
+        return self.getElapsed() < delay
 
     def pause(self):
         """Pauses the timer."""

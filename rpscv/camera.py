@@ -45,7 +45,7 @@ class Camera():
         try:
             if type(size) is not int:
                 raise TypeError("Size must be an integer")
-            elif 1 <= size and size <= 51:
+            elif size >= 1 and size <= 51:
                 self.size = size
                 self.hRes = size * 64
                 self.vRes = size * 48
@@ -82,7 +82,7 @@ class Camera():
         gRed = 0
         gBlue = 0
         nbReadings = 100
-        for i in range(nbReadings):
+        for _ in range(nbReadings):
             gains = self.picam.awb_gains
             gRed += gains[0]
             gBlue += gains[1]
@@ -96,10 +96,9 @@ class Camera():
         ##  Write AWB gains to file
         gRed = float(gains[0])
         gBlue = float(gains[1])
-        f = open(awbFilename, 'w')
-        f.flush()
-        f.write(str(gRed) + ', ' + str(gBlue))
-        f.close()
+        with open(awbFilename, 'w') as f:
+            f.flush()
+            f.write(str(gRed) + ', ' + str(gBlue))
         print('AWB gains set to:', gRed, gBlue)
         print('AWB gains written to ' + awbFilename)
 

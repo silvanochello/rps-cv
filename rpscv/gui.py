@@ -154,28 +154,33 @@ class RPSGUI():
             self.quit()
 
     def showPrivacyNote(self, delay=10000):
-        if self.privacy:
-            # Fill surface with background color
-            self.surf.fill(self.WHITE)
+        if not self.privacy:
+            return
 
-            #Render text on surface
-            font = pg.freetype.SysFont(None, 40)
-            text = font.render('Privacy Notice', self.RED)
-            pos = (self.sWidth / 2, 100)
+        # Fill surface with background color
+        self.surf.fill(self.WHITE)
+
+        #Render text on surface
+        font = pg.freetype.SysFont(None, 40)
+        text = font.render('Privacy Notice', self.RED)
+        pos = (self.sWidth / 2, 100)
+        self.blitTextAlignCenter(self.surf, text, pos)
+
+        font = pg.freetype.SysFont(None, 20)
+        pn = [
+            'Images captured during the game are stored to help',
+            'improve the image classification algorithm and may be',
+            'shared publicly. By playing this game you agree to have',
+            'images of your hand captured and stored.',
+        ]
+
+        for i, line in enumerate(pn):
+            text = font.render(line, self.BLACK)
+            pos = (self.sWidth / 2, 150 + 25 * i)
             self.blitTextAlignCenter(self.surf, text, pos)
 
-            font = pg.freetype.SysFont(None, 20)
-            pn = ['Images captured during the game are stored to help']
-            pn.append('improve the image classification algorithm and may be')
-            pn.append('shared publicly. By playing this game you agree to have')
-            pn.append('images of your hand captured and stored.')
-            for i, line in enumerate(pn):
-                text = font.render(line, self.BLACK)
-                pos = (self.sWidth / 2, 150 + 25 * i)
-                self.blitTextAlignCenter(self.surf, text, pos)
-
-            pg.display.flip()
-            pg.time.wait(delay)
+        pg.display.flip()
+        pg.time.wait(delay)
 
     def quit(self, delay=0):
         pg.time.wait(delay)
