@@ -109,6 +109,8 @@ if __name__ == '__main__':
         greenImg = cv2.imread('img/gui/green.png', cv2.IMREAD_COLOR)
         greenImg = cv2.cvtColor(greenImg, cv2.COLOR_BGR2RGB)
 
+        notify = False
+
         while True:
 
             # Get image from camera
@@ -131,8 +133,6 @@ if __name__ == '__main__':
 
             # Parameters for saving new images
             gesture = None
-            notify = False
-
             # Check if player hand is present
             if nonZero > 9000:
 

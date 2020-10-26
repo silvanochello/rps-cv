@@ -37,8 +37,6 @@ from rpscv import imgproc as imp
 
 def saveImage(img, gesture):
 
-    # Define image path and filename
-    folder = utils.imgPathsRaw[gesture]
     name = utils.gestureTxt[gesture] + '-' + time.strftime('%Y%m%d-%H%M%S')
     extension = '.png'
 
@@ -51,6 +49,8 @@ def saveImage(img, gesture):
     cv2.imshow('Camera', imgTxt)
     key = cv2.waitKey(2000)
     if key not in [110, 120]:
+        # Define image path and filename
+        folder = utils.imgPathsRaw[gesture]
         # Key is not x or n. Save image
         cv2.imwrite(folder + name + extension, img)
         print("Saved ({}x{})".format(img.shape[1], img.shape[0]))
